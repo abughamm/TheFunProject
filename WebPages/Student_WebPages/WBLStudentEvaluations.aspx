@@ -17,7 +17,7 @@
 
         <br />
         <asp:Label runat="server" Text="Choose a Teacher:" ></asp:Label>
-        <asp:DropDownList ID="ddTeacherEvaluations" runat="server" DataTextField="Name" DataSourceID="teacherEvalCommand" AutoPostBack="true" Visible="true">
+        <asp:DropDownList ID="ddTeacherEvaluations" runat="server" DataTextField="Name" DataSourceID="teacherEvalCommand" AutoPostBack="true" Visible="true" OnSelectedIndexChanged="ddTeacherEvaluations_SelectedIndexChanged">
         </asp:DropDownList>
         <br />
         <asp:Button runat="server" Text="Evaluate Teacher" ID="btnEvaluateTeacher" Visible="true" OnClick="btnEvaluateTeacher_Click" />
@@ -26,18 +26,19 @@
 
 
     </form>
-<asp:SqlDataSource id="courseListCommand" ConnectionString="<%$ ConnectionStrings:DBCS %>" SelectCommand="Select CONVERT(varchar(10),C.CourseID)+ '-' + C.CourseName as Name From Course C JOIN ClassSchedule CS on C.CourseID = CS.CourseID AND Cs.StudentID = @StudentID" runat="server" >
+    <asp:SqlDataSource id="courseListCommand" ConnectionString="<%$ ConnectionStrings:DBXY %>" SelectCommand="Select CONVERT(varchar(10),C.CourseID)+ '-' + C.CourseName as Name From Course C JOIN ClassSchedule CS on C.CourseID = CS.CourseID AND Cs.StudentID = @StudentID" runat="server" >
         <SelectParameters>
-            <asp:Parameter DefaultValue="23" Name="StudentID" Type="Int32" />
+            <asp:SessionParameter  Name="StudentID" SessionField="MemberID" Type="Int32" />
         </SelectParameters>
 
     </asp:SqlDataSource>
 
-        <asp:SqlDataSource id="teacherEvalCommand" ConnectionString="<%$ ConnectionStrings:DBCS %>" SelectCommand="Select distinct CONVERT(varchar(10),M.MemberID) + '-' + M.FirstName + ' ' + M.LastName as Name From Member M JOIN ClassSchedule CS on CS.TeacherID = M.MemberID AND CS.CourseID = @CourseID" runat="server" >
+        <asp:SqlDataSource id="teacherEvalCommand" ConnectionString="<%$ ConnectionStrings:DBXY %>" SelectCommand="Select distinct CONVERT(varchar(10),M.MemberID) + '-' + M.FirstName + ' ' + M.LastName as Name From Member M JOIN ClassSchedule CS on CS.TeacherID = M.MemberID AND CS.CourseID = @CourseID" runat="server" >
         <SelectParameters>
             <asp:SessionParameter Name="CourseID" SessionField="stuEvaluationCourseID" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
+
 
 
 

@@ -1,6 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MCBlog.aspx.cs" Inherits="MCBlog" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MCBlog.aspx.cs" MasterPageFile="~/NestedMasterPages/WBLCommonMasterPage.master" Inherits="MCBlog" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 <style type="text/css">
     html {background-color: black}
         #form1 {
@@ -20,10 +20,12 @@
         }
          </style>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+
+<head>
     <title>MCBlog</title>
 </head>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 <body>
      <a href="Topics.aspx">Back To Topics</a>
     <form id="form1" runat="server">
@@ -35,7 +37,7 @@
         <asp:Repeater ID="rptPages" runat="server" DataSourceID="SqlDataSource1">
     <ItemTemplate>
         <%# Container.ItemIndex + 1 %>
-        <asp:HyperLink ID="HyperLink" NavigateUrl='<%# string.Format("~/blog/{0}/{1}.aspx", Eval("PostID"), Eval("Subject")) %>'
+        <asp:HyperLink ID="HyperLink" NavigateUrl='<%# string.Format("~/WebPages/Common_WebPages/{0}/{1}.aspx", Eval("PostID"), Eval("Subject")) %>'
             Text='<%# Eval("Subject") %>'  runat="server" validateRequest ="false" />
     </ItemTemplate>
     <SeparatorTemplate>
@@ -44,7 +46,7 @@
 </asp:Repeater>
             </div>
     
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DBCS %>" SelectCommand="SELECT [PostID], [BlogPostDate], [PostContent], [Subject] FROM [BlogPost] WHERE ([DisciplineType] = @DisciplineType)">
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DBXY %>" SelectCommand="SELECT [PostID], [BlogPostDate], [PostContent], [Subject] FROM [BlogPost] WHERE ([DisciplineType] = @DisciplineType)">
             <SelectParameters>
                 <asp:SessionParameter Name="DisciplineType" SessionField="DisciplineType" Type="String" />
             </SelectParameters>
@@ -66,4 +68,4 @@
     </form>
    
 </body>
-</html>
+</asp:Content>

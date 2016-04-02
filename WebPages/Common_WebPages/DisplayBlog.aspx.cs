@@ -8,7 +8,7 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 
-public partial class DisplayBlog : System.Web.UI.Page
+public partial class DisplayBlog : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -130,6 +130,6 @@ public partial class DisplayBlog : System.Web.UI.Page
     }
     protected void Return_Click(object sender, EventArgs e)
     {
-        Response.Redirect("/Blog/CommunityBlogHomePage.aspx");
+        Response.Redirect("~/WebPages/Common_WebPages/CommunityBlogHomePage.aspx");
     }
 }
